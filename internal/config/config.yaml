@@ -1,0 +1,6 @@
+database:
+  host: "postgres"
+  port: 5432
+  password: postgres
+  dbname: oilpalm
+  connections: 100
