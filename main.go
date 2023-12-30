@@ -4,9 +4,6 @@ import (
 	"context"
 	"log"
 	"net/http"
-	"time"
-
-	"go.opentelemetry.io/otel"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
@@ -38,11 +35,6 @@ func main() {
 
 	ctx = logger.WithCtx(context.Background(), l)
 
-	tracer := otel.Tracer("rolldice")
-
-	ctx, span := tracer.Start(context.Background(), "HTTP GET /devices")
-	defer span.End()
-
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 
@@ -58,26 +50,20 @@ func main() {
 // 3. Inject x-request-id ke context
 
 func getDevices(w http.ResponseWriter, r *http.Request) {
-	defer opentelemetry.GetSpan(r.Context(), "getDevices").End()
+	ctx := r.Context()
+
+	ctx, span := opentelemetry.GetSpan(ctx, "getDevices")
+	defer span.End()
 
 	// Simulate Database call to fetch connected devices.
-	db(r.Context())
-
-	// Add additional delay to simulate HTTP request.
-	time.Sleep(1 * time.Second)
+	db(ctx)
 
 	// Return devices
 	w.Write([]byte("ok"))
 }
 
-func logSomething(ctx context.Context) {
-	l := logger.FromCtx(ctx)
-	l.Info("asdasdad")
-}
-
 func db(ctx context.Context) {
-	defer opentelemetry.GetSpan(ctx, "DB").End()
+	ctx, span := opentelemetry.GetSpan(ctx, "DB")
+	defer span.End()
 
-	// Simulate Database call to SELECT connected devices.
-	time.Sleep(2 * time.Second)
 }

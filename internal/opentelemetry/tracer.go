@@ -46,10 +46,10 @@ func newTraceProvider(exp sdktrace.SpanExporter) (*sdktrace.TracerProvider, erro
 	), nil
 }
 
-func GetSpan(ctx context.Context, status string) trace.Span {
+func GetSpan(ctx context.Context, status string) (context.Context, trace.Span) {
 	// fmt.Println(*config.Get())
 	serviceName := config.Get().ServiceName
-	_, span := otel.Tracer(serviceName).Start(ctx, status)
+	ctx, span := otel.Tracer(serviceName).Start(ctx, status)
 
-	return span
+	return ctx, span
 }
