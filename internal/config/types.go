@@ -5,8 +5,10 @@ type Args struct {
 }
 
 type Config struct {
-	Database Database `yaml:"database"`
-	LogLevel string   `yaml:"log_level"`
+	Database    Database `yaml:"database"`
+	LogLevel    string   `yaml:"log_level"`
+	Otel        Otel     `yaml:"otel"`
+	ServiceName string   `yaml:"service_name"`
 }
 
 type Database struct {
@@ -16,4 +18,11 @@ type Database struct {
 	Password    string `env:"DB_PASSWORD" env-description:"Database user password"`
 	Name        string `yaml:"dbname" env:"DB_NAME" env-description:"Database name"`
 	Connections int    `yaml:"connections" env:"DB_CONNECTIONS" env-description:"Total number of database connections"`
+}
+
+type Otel struct {
+	Endpoint struct {
+		Http string `yaml:"http"`
+		GRPC string `yaml:"grpc"`
+	} `yaml:"endpoint"`
 }

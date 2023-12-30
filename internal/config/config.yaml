@@ -5,3 +5,10 @@ database:
   connections: 100
 
 log_level: INFO
+
+otel:
+  endpoint:
+    http: "http://localhost:4318"
+    grpc: "http://localhost:4317"
+
+service_name: payment-link

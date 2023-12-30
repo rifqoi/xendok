@@ -9,6 +9,7 @@ import (
 	"sync"
 
 	"github.com/rifqoi/xendok-service/internal/config"
+	"github.com/uptrace/opentelemetry-go-extra/otelzap"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -90,5 +91,8 @@ func WithCtx(ctx context.Context, l *zap.Logger) context.Context {
 		}
 	}
 
-	return context.WithValue(ctx, ctxKey{}, l)
+	// Add otel context
+	log := otelzap.New(l)
+
+	return context.WithValue(ctx, ctxKey{}, log)
 }
