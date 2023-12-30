@@ -19,8 +19,6 @@ type ctxKey struct{}
 var once sync.Once
 var logger *zap.Logger
 
-var appVersion string
-
 func Get() *zap.Logger {
 	once.Do(func() {
 
@@ -57,6 +55,8 @@ func Get() *zap.Logger {
 			}
 		}
 
+		appVersion := config.Get().AppVersion
+		fmt.Println(appVersion)
 		core := zapcore.NewTee(zapcore.NewCore(stdoutEncoder, stdout, logLevel).With(
 			[]zapcore.Field{
 				zap.String("git_revision", gitRevision),

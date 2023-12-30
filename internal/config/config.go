@@ -43,8 +43,6 @@ func Init(args Args) error {
 		return err
 	}
 
-	fmt.Println(cfg)
-
 	return nil
 }
 

@@ -47,6 +47,7 @@ func newTraceProvider(exp sdktrace.SpanExporter) (*sdktrace.TracerProvider, erro
 }
 
 func GetSpan(ctx context.Context, status string) trace.Span {
+	// fmt.Println(*config.Get())
 	serviceName := config.Get().ServiceName
 	_, span := otel.Tracer(serviceName).Start(ctx, status)
 

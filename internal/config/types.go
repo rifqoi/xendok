@@ -9,6 +9,7 @@ type Config struct {
 	LogLevel    string   `yaml:"log_level"`
 	Otel        Otel     `yaml:"otel"`
 	ServiceName string   `yaml:"service_name"`
+	AppVersion  string   `env:"APP_VERSION"`
 }
 
 type Database struct {

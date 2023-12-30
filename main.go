@@ -34,6 +34,8 @@ func main() {
 	l := logger.Get()
 	defer l.Sync()
 
+	l.Info("test")
+
 	ctx = logger.WithCtx(context.Background(), l)
 
 	tracer := otel.Tracer("rolldice")
@@ -49,6 +51,11 @@ func main() {
 
 	db(ctx)
 }
+
+// Middleware
+// 1. Inject logger ke context
+// 2. Inject trace id dan span id ke context
+// 3. Inject x-request-id ke context
 
 func getDevices(w http.ResponseWriter, r *http.Request) {
 	defer opentelemetry.GetSpan(r.Context(), "getDevices").End()
