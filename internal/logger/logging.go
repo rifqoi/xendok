@@ -8,6 +8,7 @@ import (
 	"runtime/debug"
 	"sync"
 
+	"github.com/rifqoi/xendok-service/internal/config"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
 )
@@ -26,7 +27,7 @@ func Get() *zap.Logger {
 
 		level := zap.InfoLevel
 
-		levelEnv := os.Getenv("LOG_LEVEL")
+		levelEnv := config.Get().LogLevel
 		if levelEnv != "" {
 			levelFromEnv, err := zapcore.ParseLevel(levelEnv)
 			if err != nil {

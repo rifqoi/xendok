@@ -6,6 +6,7 @@ type Args struct {
 
 type Config struct {
 	Database Database `yaml:"database"`
+	LogLevel string   `yaml:"log_level"`
 }
 
 type Database struct {

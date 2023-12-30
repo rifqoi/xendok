@@ -27,6 +27,7 @@ func main() {
 	fmt.Println(cfg.Database.Password)
 	logSomething(ctx)
 	l.Info("asd")
+	l.Debug("asd")
 }
 
 func logSomething(ctx context.Context) {

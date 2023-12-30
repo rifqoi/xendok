@@ -38,7 +38,6 @@ func ProcessArgs() Args {
 }
 
 func Init(args Args) error {
-
 	if err := cleanenv.ReadConfig(args.ConfigPath, &cfg); err != nil {
 		fmt.Println(err)
 		return err

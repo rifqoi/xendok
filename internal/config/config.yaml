@@ -1,6 +1,7 @@
 database:
   host: "postgres"
   port: 5432
-  password: postgres
   dbname: oilpalm
   connections: 100
+
+log_level: INFO
